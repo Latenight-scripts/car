@@ -147,7 +147,13 @@ private:
 
         // A stop must not wait behind a mechanical mode transition. Run 0
         // stops the CURRENT firmware mode before any SteerModeCtrl request.
-        if (fabs(speed)<1e-6 || !car_ctr_msg.enable) {
+        if (!car_ctr_msg.enable) {
+            driver_reason="command_disabled_stop";
+            sprintf(str,"Car Run 0.0 %.2f",car_ctr_msg.angle);
+            send_packet(str);
+            return; // A disabled command must never fall through to nonzero Run.
+        }
+        if (fabs(speed)<1e-6) {
             sprintf(str,"Car Run 0.0 %.2f",car_ctr_msg.angle);
             send_packet(str);
         }

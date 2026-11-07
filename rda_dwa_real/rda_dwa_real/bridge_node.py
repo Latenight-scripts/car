@@ -54,6 +54,7 @@ from .vehicle_bridge import (VehicleBridgeCore, BridgeConfig, compute_spin_targe
 from .obstacle_fusion import Clusterer, cluster_bounding_box, infer_type
 from .frame_utils import quat_to_yaw, is_body_frame, body_pose_to_base_link
 from .dqn_infer import DQNPolicy
+from .telemetry_recording import safe_data
 # 2026-11-06 重构：/rda/traj 改为"前方 2.5m 路基"（里程域积分，见 vehicle_bridge._build_road_base），
 # 不再使用 predict_reference_traj / traj_point_count（定时域预测）与 traj_cache（时序缓存，已下移跟踪层）。
 
@@ -759,6 +760,7 @@ class RealVehicleBridgeNode(Node):
             'timing':info.get('timing'),
             'pose':dict(centre=self.core.centre(),rear=[self.core.robot.x,self.core.robot.y,self.core.robot.theta],source_stamp=self.core._pose_source,arrival_age_s=self.core._t_now-self.core._t_loc,v_estimate=self.core._v_meas),
             'goal':self.core._goal,
+            'goal_received':bool(self.core._goal_received),
             'obstacle_source_stamp':self.core._obs_source,
             'obstacle_age_s':self.core._t_now-self.core._t_obs,
             'planner': info.get('planner',{}),
@@ -796,7 +798,7 @@ class RealVehicleBridgeNode(Node):
             'road_base_len': float(self._last_traj_arc),      # 下发路基弧长（0=自转/停车）
             'trap_sub_dist0': float(getattr(self.core, '_trap_sub_dist0', 0.0)),
         }
-        self._pub_diag.publish(String(data=json.dumps(diag, ensure_ascii=False)))
+        self._pub_diag.publish(String(data=json.dumps(safe_data(diag), ensure_ascii=False, allow_nan=False)))
 
     def destroy_node(self):
         if self._async_planner is not None: self._async_planner.close()

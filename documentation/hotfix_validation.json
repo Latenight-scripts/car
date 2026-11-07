@@ -1,0 +1,12 @@
+{
+  "python_regressions": 60,
+  "portable_startup_tests": 6,
+  "original_startup_failure_reproduced": true,
+  "cpp_driver_protocol_and_disabled_command_check": true,
+  "verified_package_source_files": 75,
+  "runtime_packages_changed_this_hotfix": [
+    "rda_dwa_real",
+    "car_ctr"
+  ],
+  "scope": "Offline production Python control callbacks with ROS doubles, real spawned planning worker, and C++17 ROS/UDP memory doubles; no live ROS or vehicle validation"
+}

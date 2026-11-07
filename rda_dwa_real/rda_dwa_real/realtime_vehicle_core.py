@@ -11,6 +11,9 @@ from rda_dwa.motion_safety import VehicleGeometry,TrackedObstacle,rollout_rear,t
 class RealtimeVehicleBridgeCore(VehicleBridgeCore):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
+        # The ROS timer publishes diagnostics before the first goal callback.
+        # This supervisor overrides the legacy step that initialized _goal.
+        self._goal=None
         self.geometry=VehicleGeometry(self.ack_model.p.length,self.ack_model.p.width,self.ack_model.p.wheelbase)
         self._pose_source=None;self._pose_prior=None;self._pose_fault=False;self._v_meas=0.;self._mode_ready=0
         self._mode_arrival=-1e9;self._session=0;self._session_target=0.;self._blocked_since=None

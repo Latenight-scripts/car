@@ -134,8 +134,8 @@
       "size_bytes": 15646
     },
     "rda_dwa_real/rda_dwa_real/realtime_vehicle_core.py": {
-      "sha256": "0e2177b4d9f20add77ced18c301a8a7c5d62b53c486e3f7c4c036bcd66dddc52",
-      "size_bytes": 14755
+      "sha256": "01a7fba0e792a5c83ba1f5d05e7b9a97d7786c52d8e3277a1578f245fe72fba7",
+      "size_bytes": 14933
     },
     "rda_dwa_real/rda_dwa_real/traj_cache.py": {
       "sha256": "047fd9651c0a0f072a086a7429eea5b86569f50c5da8b195bb4ab9b1e1d179d9",
@@ -186,8 +186,8 @@
       "size_bytes": 55914
     },
     "rda_dwa_real/rda_dwa_real/bridge_node.py": {
-      "sha256": "549b69ca781583b5dad86be72a9a5f2c3d452cfdf2733a00ce5a30555f7f65a0",
-      "size_bytes": 50209
+      "sha256": "de00961cc87e68660505554b319e9e99e8b54e039946f238c51a8df2cbcd17c1",
+      "size_bytes": 50340
     },
     "rda_dwa_real/rda_dwa_real/async_planner.py": {
       "sha256": "6933abc82ed1e6939042ce26ff700bbe2468c8d7e7c6bf1a5f6ee826e1e17a25",
@@ -238,8 +238,8 @@
       "size_bytes": 640
     },
     "control/car_ctr/src/car_ctr.cpp": {
-      "sha256": "3afd594542ee760b0ab30465b177f40e7ed1327df9a09c62aad90d6e9f308d64",
-      "size_bytes": 20870
+      "sha256": "0fffc482615533a48f56824a8cf92ac15b65ea1cb30139a2448045be767ba5c2",
+      "size_bytes": 21119
     },
     "control/car_ctr/src/mode_switch_guard.hpp": {
       "sha256": "e0be037919cc4b4e9a0af09eb39993da518dade09f7b283f5447ee16a812b720",
@@ -346,7 +346,7 @@
     },
     "control/car_ctr/src/car_ctr.cpp": {
       "before_sha256": "304e39b96bee220f6e7c4b1b763247b4ede3b75ff9bca737e23a0571f3d67776",
-      "after_sha256": "3afd594542ee760b0ab30465b177f40e7ed1327df9a09c62aad90d6e9f308d64",
+      "after_sha256": "0fffc482615533a48f56824a8cf92ac15b65ea1cb30139a2448045be767ba5c2",
       "accepted_before_sha256": [
         "304e39b96bee220f6e7c4b1b763247b4ede3b75ff9bca737e23a0571f3d67776",
         "facf0e92c459817019bd9b2e33d5b99da976f7537eff4cbb94853f981e594835",
@@ -442,7 +442,7 @@
     },
     "rda_dwa_real/rda_dwa_real/bridge_node.py": {
       "before_sha256": "f10694a28d4c16483225d6b116f6b25376f2eeda49c39680046d337b2fe5b891",
-      "after_sha256": "549b69ca781583b5dad86be72a9a5f2c3d452cfdf2733a00ce5a30555f7f65a0",
+      "after_sha256": "de00961cc87e68660505554b319e9e99e8b54e039946f238c51a8df2cbcd17c1",
       "accepted_before_sha256": [
         "f10694a28d4c16483225d6b116f6b25376f2eeda49c39680046d337b2fe5b891",
         "2c686110e60fef8ffb62bf25ce14c5e5118671ce9b1b6e00dd3bade0a6c4eb1a",
@@ -489,7 +489,7 @@
     },
     "rda_dwa_real/rda_dwa_real/realtime_vehicle_core.py": {
       "before_sha256": null,
-      "after_sha256": "0e2177b4d9f20add77ced18c301a8a7c5d62b53c486e3f7c4c036bcd66dddc52",
+      "after_sha256": "01a7fba0e792a5c83ba1f5d05e7b9a97d7786c52d8e3277a1578f245fe72fba7",
       "accepted_before_sha256": [
         null,
         "28ed3fe9b76062e7852e3979299ec16c695b6539fd196d03be2bf08d2b9bf3c7",
@@ -532,5 +532,6 @@
         "6359cb1cf902a4fbe1e7040adaa84636d2783c1c41dad70e11771fc9fa064143"
       ]
     }
-  }
+  },
+  "latest_update": "2026-11-07 startup diagnostic and disabled command hotfix"
 }
