@@ -6,7 +6,7 @@
 
 ## 原实车问题的原因与对应修复
 
-原日志与完整证据见 [原日志分析](../../analysis/20261107_real_logs/analysis_report.md)。record_data.zip 中共有 4 次独立实验；222.zip 与其中最后一次相同，不应算作另一份独立实验。
+原日志与完整证据见 原电脑交付目录中的原日志分析报告。record_data.zip 中共有 4 次独立实验；222.zip 与其中最后一次相同，不应算作另一份独立实验。
 
 - 跟踪器原先按墙钟时间查询未来参考，即使车没有前进，参考航向仍向前推进。原日志中存在规划 +11.87°、命令 +28.65°；规划 +8.41°、命令 −28.49°；规划 +2.48°、命令 +30°。新跟踪器按实际几何投影计算误差，完整替换已验证的路径，避免旧路径末尾与新路径接缝生成超过物理曲率的参考。固定姿态 κ=.3/m 回归保持在约 11.7°，不会随等待变成 30°。
 - 原模式判据把经过截断的 dt 用于等待/失败计时，规划长耗时又阻塞发布，导致近目标迟迟不能触发自转；自转目标还可能受 APF 排斥反向偏移。原 222 日志从首次目标至首次自转请求约 76.8 s，其中第二次目标后仍等约 20 s。改为独立异步规划和主节点实时仲裁，自转目标锁存为可行引导方向，不再用 APF 方向替换近目标角度。
@@ -131,26 +131,6 @@
 
 设计对照：[Nav2 曲率调速及速度预瞄](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/controller_plugins/configuring_regulated_pp/)、[ROS 2 传感器 QoS 官方说明](http://docs.ros.org/en/ros2_documentation/humble/Concepts/Intermediate/About-Quality-of-Service-Settings.html)。本项目仍使用自己的 DWA/LQR，未替换为这些插件。
 
-## 部署和复现
+## 部署
 
-当前工作目录已经是最终修改后的源码。最终包提供相对最初 88 文件基线的合并补丁、SHA256 清单、原始备份和回滚脚本；第一阶段 92 文件的冻结源码另保存在 work1_foundation_sources.zip。apply_delivery.py 默认只检查，确认后加 --apply 才复制；遇到不属于原始版本/第一阶段冻结版本的后续编辑会拒绝覆盖。rollback.py 默认只检查，加 --apply 恢复到两项工作之前的原始版本，并保留报告。
-
-车辆主 launch 仍是 ros2 launch car_launch run_rda_dwa.launch.py。Obstacle 消息新增了字段，必须在车机的实际 ROS 工作空间重新构建消息包与相关节点再 source；当前电脑无法完成这一步。补齐了 ROS 包对算法核心、可视化消息和点云解析模块的依赖声明，确保构建顺序和运行依赖明确。
-
-```bash
-# 在车机工作空间根目录，而不是 src_doubao 源码目录执行
-colcon build --packages-up-to rda_dwa rda_dwa_real_msgs rda_dwa_real car_ctr car_launch
-source install/setup.bash
-# 本报告没有替用户执行 launch
-```
-
-离线复现使用 Python + requirements-validation.txt；C++ 替身需要 clang++。从源码根目录运行：
-
-```bash
-python -m pytest -q docs/implementation/20261107/test_realtime.py docs/implementation/20261107/test_async_planner.py docs/implementation/20261107_school/test_school.py
-python docs/implementation/20261107_school/final_validate.py
-python docs/implementation/20261107_school/held_out.py
-python docs/implementation/20261107_school/check_cpp_protocol.py
-```
-
-每轮结果、全部失败、轨迹和原日志频率均保留在本目录 JSON 文件；可对照 changes.patch 审查具体代码。
+按仓库README替换六个包并在车机重新构建、source。这个GitHub目录仅含修改包与说明，原始数据、仿真脚本和回滚备份仍保留在原电脑交付目录。

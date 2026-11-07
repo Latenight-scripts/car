@@ -74,7 +74,7 @@ ros2 topic pub --once /rda/test_note std_msgs/msg/String "{data: '按下急停�
 可用本包的inspect_recording.py在无ROS电脑上快速检查逐消息计数、时间倒序、序号缺口、写盘错误及bag元数据是否存在：
 
 ```bash
-python docs/implementation/20261107_recorder/inspect_recording.py /path/to/run_directory
+python tools/inspect_recording.py /path/to/run_directory
 ```
 
 ## 已验证与实际限制
@@ -85,4 +85,4 @@ python docs/implementation/20261107_recorder/inspect_recording.py /path/to/run_d
 
 旁路和JSON自身均有容量边界，best-effort订阅也可能丢DDS消息；多个序号和丢弃计数用于识别这些问题，不声称绝对不丢包。原UDP缓存的控制读取方式仍保留，raw socket旁路用于看清这个链路，而不是重写底盘协议。没有对KF/导航/控制速度参数重新调参。
 
-完整包 deployment_20261107_with_logging.zip 包含前面算法改进与本次日志升级。logging_changes.patch是相对上一版的单独日志补丁；rollback_logging.py撤销本次日志变更并保留之前算法版本，rollback.py可恢复到两项算法工作之前的原始源码。所有脚本先检查SHA256，默认只检查，加--apply才修改，遇到后续编辑会拒绝覆盖。
+本GitHub目录仅保存修改包与说明；原始完整交付包、回滚备份和验证数据仍保留在原电脑交付目录。

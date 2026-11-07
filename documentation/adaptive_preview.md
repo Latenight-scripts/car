@@ -62,14 +62,4 @@
 
 ## 部署与回滚
 
-完整更新包deployment_20261107_adaptive_preview.zip包含前面算法修改、日志升级和本次自适应预瞄；当前源码已更新。已有上一版的车机重点重新构建rda_dwa_real并source。由最初版本整体升级时，还须构建此前改动的消息包、common和car_ctr。
-
-```bash
-# 在车机ROS工作空间根目录
-colcon build --packages-up-to rda_dwa_real
-source install/setup.bash
-```
-
-preview_changes.patch是本次单独补丁。rollback_preview.py撤销本次更新并保留之前算法与日志版本；rollback.py恢复最初源码。脚本默认只检查，加--apply才修改，并拒绝覆盖后续编辑。apply_delivery.py可检查并将完整更新覆盖到匹配的既有源码树。
-
-复现当前对照/扩展：final_compare.py、extended_validate.py。parameter_search.json记录候选和全部结果；final_comparison.json、extended_results.json及各场景轨迹/预瞄JSON保存最终数据。
+本GitHub目录包含修改的六个ROS包；在车机现有工作空间替换对应包后重新构建并source。已有上一版日志代码时重点构建rda_dwa_real；整体升级时也需要common、car_ctr与rda_dwa_real_msgs。原始对照数据、单独补丁和回滚备份保留在原电脑交付目录。
